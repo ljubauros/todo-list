@@ -1,62 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
 </head>
+
 <body>
     <div class="container">
+        <div class="jumbotron">
+            <h1>Todo List</h1>
+        </div>
 
-            <table class="table">
-                <thead>
-                    <th>Text</th>
-                    <th>Done</th>
-                </thead>
-                <tbody>
-                    <% todos.forEach(todo => { %>
-                        <tr>
-                            <td><%= todo.text %></td>
-                            <td><a class="btn <%= todo.done ? "btn-primary" : "btn-default" %>" href="/change/<%= todo._id %>/<%= todo.done %>"><%= todo.done ? 'Finished' : 'In progress' %></a></td>
-                            <td><a class="btn btn-danger" href="/delete/<%= todo._id %>">Delete</a></td>
-                        </tr>
-            
-                    <% }); %>
-        
-                </tbody>
-            </table>
-            <hr>
-            <h4>Add new todo:</h4>
-            <form class="form" action="/new" method="post">
-                <div class="form-group">
-                    <label for="text" class="control-label">Text:</label>
-                    <input class="form-control" type="text" name="text" placeholder="Text">
+        <h2>Add new todo:</h2>
+        <form class="form row" action="/new" method="post">
+            <div class="form-group col-md-6">
+                <input class="form-control" type="text" name="text" placeholder="Text">
+            </div>
 
-                </div>
-
-                <div class="form-group">  <!-- Terms Checkbox !-->
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="done" value="done">
+            <div class="form-group col-md-1">
+                <!-- Terms Checkbox !-->
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="done" value="done" class="cb">
                         Done
-                      </label>
-                    </div>
+                    </label>
                 </div>
-                <button type="submit" class="btn btn-primary">
+            </div>
+            <div class="col-md-5">
+                <button type="submit" class="btn-md btn btn-primary">
                     Add
                 </button>
-            </form>
-                
+            </div>
+        </form>
+        <hr>
+        <input type="checkbox" name="finished" id="finished-check" class="cb">
+        <label>Show finished</label>
+        <input type="checkbox" name="in-progress" id="inprogress-check" class="cb">
+        <label>Show in progress</label>
+        <table class="table">
+            <thead>
+                <th>Text</th>
+                <th>Done</th>
+            </thead>
+            <tbody>
+                <% todos.forEach(todo => { %>
+                <tr class="<%= todo.done ? 'todo-finished' : 'todo-inprogress'%>">
+                    <td>
+                        <%= todo.text %>
+                    </td>
+                    <td><a class="btn <%= todo.done ? " btn-primary" : "btn-default" %>" href="/change/<%= todo._id %>/<%= todo.done %>">
+                            <%= todo.done ? 'Finished' : 'In progress' %></a></td>
+                    <td><a class="btn btn-danger" href="/delete/<%= todo._id %>">Delete</a></td>
+                </tr>
+
+                <% }); %>
+
+            </tbody>
+        </table>
+        <hr>
+        
+        
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
 </body>
+
 </html>
